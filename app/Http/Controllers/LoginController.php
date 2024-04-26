@@ -42,7 +42,7 @@ class LoginController extends Controller
                     return redirect()->intended('/');
             }
         }
-        return back()->with('error', 'username/password salah');
+        return back()->with('toast_error', 'username/password salah');
     }
     public function logout(Request $request)
     {
