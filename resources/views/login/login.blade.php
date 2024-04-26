@@ -3,6 +3,7 @@
 
 <head>
     <!-- Required meta tags -->
+    <link rel="icon" type="image/x-icon" href="{{ asset('logo.png') }}">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -24,15 +25,6 @@
                     <div class="container">
                         <div class="row">
                             <div class="col-lg-7 col-xl-6 mx-auto">
-                                {{-- Error Alert --}}
-                                @if (session('error'))
-                                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                        {{ session('error') }}
-                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
-                                @endif
                                 <h3 class="display-4 text-center">LOGIN</h3> <br>
                                 <form action="{{ route('proses') }}" method="POST">
                                     @csrf
@@ -65,6 +57,8 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous">
     </script>
+    @include('sweetalert::alert')
+
 </body>
 
 </html>
