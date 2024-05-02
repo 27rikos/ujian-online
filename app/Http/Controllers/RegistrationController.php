@@ -10,4 +10,8 @@ class RegistrationController extends Controller
     {
         return view('login.register');
     }
+    public function register(Request $request)
+    {
+        dd($request);
+    }
 }
