@@ -1,4 +1,6 @@
-@extends('partials.admin')
+@extends('partials.dosen')
 @section('content')
-    <p>ini dosen</p>
+    <div class="pc-content">
+        <p>Welcome</p>
+    </div>
 @endsection
