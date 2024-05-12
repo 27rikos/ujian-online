@@ -25,7 +25,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [LoginController::class, 'index'])->name('login');
 Route::post('/login/auth', [LoginController::class, 'authenticate'])->name('proses');
-Route::post('/login/out', [LoginController::class, 'logout'])->name('logout');
+Route::get('/login/out', [LoginController::class, 'logout'])->name('logout');
 Route::get('/register', [RegistrationController::class, 'index'])->name('registrasi');
 Route::post('/register/proses', [RegistrationController::class, 'register'])->name('daftar');
 
