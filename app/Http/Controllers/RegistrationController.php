@@ -15,13 +15,19 @@ class RegistrationController extends Controller
     }
     public function register(Request $request)
     {
-        $this->validate($request, [
-            'name' => 'required',
-            'nim' => 'required',
-            'email' => 'required',
-            'phone' => 'required',
-            'password' => 'required'
-        ]);
+        $this->validate(
+            $request,
+            [
+                'name' => 'required',
+                'nim' => 'required|unique:users',
+                'email' => 'required',
+                'phone' => 'required',
+                'password' => 'required'
+            ],
+            messages: [
+                'nim.unique' => 'NIM sudah digunakan'
+            ]
+        );
         // Hashing password
         $hashedPassword = Hash::make($request->password);
         $data = User::create([

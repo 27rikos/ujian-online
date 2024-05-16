@@ -9,13 +9,13 @@
                     <div class="row align-items-center">
                         <div class="col-md-12">
                             <div class="page-header-title border-bottom pb-2 mb-2">
-                                <h4 class="mb-0">Data Alumni</h4>
+                                <h4 class="mb-0">Data Dosen</h4>
                             </div>
                         </div>
                         <div class="col-md-12">
                             <ul class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="#"><i class="ph ph-house"></i></a></li>
-                                <li class="breadcrumb-item" aria-current="page">Alumni</li>
+                                <li class="breadcrumb-item" aria-current="page">Dosen</li>
                             </ul>
                         </div>
                     </div>
@@ -31,7 +31,7 @@
                 <div class="card">
                     <div class="card-header">
                         <div>
-                            <a href="{{ route('mahasiswa.create') }}" class="btn btn-primary btn-sm">Tambah Data</a>
+                            <a href="{{ route('Dosen.create') }}" class="btn btn-primary btn-sm">Tambah Data</a>
                         </div>
                     </div>
                     <div class="card-body">
@@ -39,31 +39,34 @@
                             <thead>
                                 <tr>
                                     <th>No</th>
-                                    <th>NPM</th>
                                     <th>Nama</th>
-                                    <th>Prodi</th>
-                                    <th>Peminatan</th>
-                                    <th>Stambuk</th>
+                                    <th>NIDN</th>
+                                    <th>NO HP</th>
+                                    <th>Email</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>Tiger</td>
-                                    <td>Nixon</td>
-                                    <td>System Architect</td>
-                                    <td>Edinburgh</td>
-                                    <td>61</td>
-                                    <td>2011-04-25</td>
-                                    <td>
-                                        <a href="#" class="btn btn-primary btn-sm" title="Edit"><i
-                                                class="fa-solid fa-pen-to-square"></i></a>
-                                        <a href="#" class="btn btn-info btn-sm" title="Detail"><i
-                                                class="fa-solid fa-circle-info"></i></a>
-                                        <a href="#" class="btn btn-danger btn-sm" title="Hapus"><i
-                                                class="fa-solid fa-delete-left"></i></a>
-                                    </td>
-                                </tr>
+                                @foreach ($data as $item)
+                                    <tr>
+                                        <td>{{ $loop->iteration }}</td>
+                                        <td>{{ $item->name }}</td>
+                                        <td>{{ $item->nim }}</td>
+                                        <td>{{ $item->phone }}</td>
+                                        <td>{{ $item->email }}</td>
+                                        </td>
+                                        <td class="d-flex gap-1">
+                                            <a href="{{ route('Dosen.edit', $item->id) }}" class="btn btn-primary btn-sm"
+                                                title="Edit"><i class="fa-solid fa-pen-to-square"></i></a>
+                                            <form action="{{ route('Dosen.destroy', $item->id) }}" method="post">
+                                                @method('delete')
+                                                @csrf
+                                                <button class="btn btn-danger btn-sm" type="submit"><i
+                                                        class="fa-solid fa-delete-left "></i></button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
