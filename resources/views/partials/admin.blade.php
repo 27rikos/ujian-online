@@ -60,7 +60,7 @@
             <div class="m-header">
                 <a href="../dashboard/index.html" class="b-brand text-primary">
                     <!-- ========   Change your logo from here   ============ -->
-                    <h4 class="text-primary">Alumni UMI</h4>
+                    <h4 class="text-primary">Ujian Online</h4>
                 </a>
             </div>
             <div class="navbar-content">
@@ -107,7 +107,7 @@
         <div class="m-header">
             <a href="../dashboard/index.html" class="b-brand text-primary">
                 <!-- ========   Change your logo from here   ============ -->
-                <h4 class="text-light pt-2">Alumni UMI</h4>
+                <h4 class="text-light pt-2">Ujian Online</h4>
             </a>
         </div>
         <div class="header-wrapper"> <!-- [Mobile Media Block] start -->
