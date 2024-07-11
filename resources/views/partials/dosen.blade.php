@@ -41,6 +41,7 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/2.0.2/css/dataTables.bootstrap5.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/responsive/3.0.0/css/responsive.bootstrap5.css">
     {{--  --}}
+    @stack('trix-soal')
 </head>
 <!-- [Head] end -->
 <!-- [Body] Start -->
@@ -78,7 +79,7 @@
                                 <i class="ph ph-desktop"></i></span><span class="pc-mtext">Ujian</span><span
                                 class="pc-arrow"><i data-feather="chevron-right"></i></span></a>
                         <ul class="pc-submenu">
-                            <li class="pc-item"><a class="pc-link" href="#">Matakuliah</a></li>
+                            <li class="pc-item"><a class="pc-link" href="{{ route('matakuliah-dosen.index') }}">Matakuliah</a></li>
                             <li class="pc-item pc-hasmenu">
                                 <a href="#" class="pc-link">Nilai</a>
                             </li>

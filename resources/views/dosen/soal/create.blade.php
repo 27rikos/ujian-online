@@ -1,4 +1,4 @@
-@extends('partials.admin')
+@extends('partials.dosen')
 @section('title', 'Soal')
 @section('content')
 <div class="pc-content">
@@ -31,7 +31,7 @@
         <div class="col-sm-12">
             <div class="card">
                 <div class="card-body">
-                    <form action="{{ url('soal/store',$matakuliah->id) }}" method="post">
+                    <form action="{{ url('soal-dosen/store/'.$matakuliah->id) }}" method="post">
                         @csrf
                         <div class="form-group">
                             <label for="x">Soal</label>

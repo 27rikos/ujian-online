@@ -8,4 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class Soal extends Model
 {
     use HasFactory;
+    protected $guarded = [];
 }

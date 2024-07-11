@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 
 class DosenDataController extends Controller
 {
@@ -35,14 +35,14 @@ class DosenDataController extends Controller
             $request,
             [
                 'name' => 'required',
-                'nim' => 'required|unique:users',
+                'nim' => 'unique:users',
                 'email' => 'required|unique:users',
                 'phone' => 'required',
-                'password' => 'required'
+                'password' => 'required',
             ],
             messages: [
-                'nim.unique' => 'NIM sudah digunakan',
-                'email.unique' => 'Email sudah digunakan'
+                'nim.unique' => 'NIDN sudah digunakan',
+                'email.unique' => 'Email sudah digunakan',
             ]
         );
         $role = 'dosen';

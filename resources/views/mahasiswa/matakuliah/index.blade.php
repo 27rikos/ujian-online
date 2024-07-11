@@ -1,5 +1,4 @@
-@extends('partials.admin')
-@section('title', 'Matakuliah')
+@extends('partials.mahasiswa')
 @section('content')
 <div class="pc-content">
     <!-- [ breadcrumb ] start -->
@@ -29,11 +28,6 @@
         <!-- [ sample-page ] start -->
         <div class="col-sm-12">
             <div class="card">
-                <div class="card-header">
-                    <div>
-                        <a href="{{ route('matakuliah.create') }}" class="btn btn-primary btn-sm">Tambah Data</a>
-                    </div>
-                </div>
                 <div class="card-body">
                     <table id="example" class="table table-hover  table-bordered nowrap" style="width:100%">
                         <thead>
@@ -45,13 +39,11 @@
                                 <th>Semester</th>
                                 <th>SKS</th>
                                 <th>Dosen Pengampu</th>
-                                <th>Waktu Pengerjaan</th>
-                                <th>Aksi</th>
                                 <th>Soal</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($data as $item)
+                            @foreach ($matakuliah as $item)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $item->kode_matakuliah }}</td>
@@ -60,21 +52,8 @@
                                 <td>{{ $item->semester }}</td>
                                 <td>{{ $item->sks }}</td>
                                 <td>{{ $item->dosen }}</td>
-                                <td>{{ $item->duration }} <span>Menit</span> </td>
                                 <td>
-                                    <div class="d-flex  gap-1 justify-content-center">
-                                        <a href="{{ route('matakuliah.edit',$item->id) }}" class="btn btn-info btn-sm mr-1" title="Edit"><i class="fa-solid fa-pen mr-1"></i></a>
-                                        <form action="{{ route('matakuliah.destroy',$item->id) }}" method="post">
-                                            @method('delete')
-                                            @csrf
-                                            <button type="submit" class="btn btn-danger btn-sm" title="Hapus"><i
-                                                    class="fa-solid fa-delete-left mr-1"></i></button>
-                                        </form>
-                                    </div>
-                                </td>
-                                <td>
-                                    <a href="{{ url('soal/'.$item->id) }}" class="btn btn-primary btn-sm"><i
-                                            class="fa-solid fa-plus mr-1"></i> Soal</a>
+                                    <a href="{{ url('soal-mahasiswa/'.$item->id) }}" class="btn btn-primary btn-sm">Soal</a>
                                 </td>
                             </tr>
                             @endforeach

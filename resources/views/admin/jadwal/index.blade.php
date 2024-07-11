@@ -1,5 +1,5 @@
 @extends('partials.admin')
-@section('title', 'Soal')
+@section('title', 'Mahasiswa')
 @section('content')
     <div class="pc-content">
         <!-- [ breadcrumb ] start -->
@@ -9,14 +9,13 @@
                     <div class="row align-items-center">
                         <div class="col-md-12">
                             <div class="page-header-title border-bottom pb-2 mb-2">
-                                <h4 class="mb-0">Soal</h4>
+                                <h4 class="mb-0">Data Jadwal</h4>
                             </div>
                         </div>
                         <div class="col-md-12">
                             <ul class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="#"><i class="ph ph-house"></i></a></li>
-                                <li class="breadcrumb-item" aria-current="page">Matakuliah</li>
-                                <li class="breadcrumb-item" aria-current="page">{{ $matakuliah->matakuliah }}</li>
+                                <li class="breadcrumb-item" aria-current="page">Jadwal Ujian</li>
                             </ul>
                         </div>
                     </div>
@@ -32,39 +31,42 @@
                 <div class="card">
                     <div class="card-header">
                         <div>
-                            <a href="{{ url('soal/create',$matakuliah->id) }}" class="btn btn-primary btn-sm">Tambah Data</a>
+                            <a href="{{ route('jadwal.create') }}" class="btn btn-primary btn-sm">Tambah Data</a>
                         </div>
                     </div>
                     <div class="card-body">
-                        <table id="example" class="table table-hover  table-bordered nowrap" style="width:100%">
+                        <table id="example" class="table table-bordered nowrap" style="width:100%">
                             <thead>
                                 <tr>
                                     <th>No</th>
-                                    <th>Pertanyaan</th>
-                                    <th>Tingkat Kesulitan</th>
-                                    <th>Kunci Jawaban</th>
+                                    <th>Tanggal</th>
+                                    <th>Matakuliah</th>
+                                    <th>Waktu</th>
+                                    <th>SKS</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($data as $item)
-                                <tr>
-                                    <td>{{ $loop->iteration }}</td>
-                                    <td>{!! $item->soal !!}</td>
-                                    <td>{{ $item->kesulitan }}</td>
-                                    <td>{{ $item->kunci }}</td>
-                                    <td>
-                                        <div class="d-flex justify-content-center">
-                                            <a href="{{ url("soal/{$item->id}/edit/{$matakuliah->id}") }}" class="btn btn-info btn-sm me-1" title="Edit"><i class="fa-solid fa-pen mr-1"></i></a>
-                                            <form action="{{ url("soal/{$item->id}/delete/{$matakuliah->id}") }}" method="post">
+                                @foreach ($jadwal as $item)
+                                    <tr>
+                                        <td>{{ $loop->iteration }}</td>
+                                        <td>{{ $item->tanggal }}</td>
+                                        <td>{{ $item->matakuliah }}</td>
+                                        <td>{{ $item->start }}-{{ $item->end }}</td>
+                                        <td>{{ $item->sks }}</td>
+                                        </td>
+                                        <td class="d-flex gap-1">
+                                            <a href="{{ route('jadwal.edit', $item->id) }}"
+                                                class="btn btn-primary btn-sm" title="Edit"><i
+                                                    class="fa-solid fa-pen-to-square"></i></a>
+                                            <form action="{{ route('jadwal.destroy', $item->id) }}" method="post">
                                                 @method('delete')
                                                 @csrf
-                                                <button type="submit" class="btn btn-danger btn-sm" title="Hapus"><i
-                                                        class="fa-solid fa-delete-left mr-1"></i></button>
+                                                <button class="btn btn-danger btn-sm" type="submit"><i
+                                                        class="fa-solid fa-delete-left "></i></button>
                                             </form>
-                                        </div>
-                                    </td>
-                                </tr>
+                                        </td>
+                                    </tr>
                                 @endforeach
                             </tbody>
                         </table>
