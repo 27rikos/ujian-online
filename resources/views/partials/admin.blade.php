@@ -3,7 +3,7 @@
 <!-- [Head] start -->
 
 <head>
-    <title>Home | Gradient Able Dashboard Template</title>
+    <title>Admin | @yield('title')</title>
     <!-- [Meta] -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
@@ -32,7 +32,7 @@
     <link rel="stylesheet" href="{{ asset('../assets/css/style.css') }}" id="main-style-link">
     <link rel="stylesheet" href="{{ asset('../assets/css/style-preset.css') }}">
     {{-- Data tables --}}
-
+    @stack('trix-soal')
     <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
     <script src="https://cdn.datatables.net/2.0.2/js/dataTables.js"></script>
     <script src="https://cdn.datatables.net/2.0.2/js/dataTables.bootstrap5.js"></script>
@@ -41,6 +41,7 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/2.0.2/css/dataTables.bootstrap5.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/responsive/3.0.0/css/responsive.bootstrap5.css">
     {{--  --}}
+
 </head>
 <!-- [Head] end -->
 <!-- [Body] Start -->
@@ -84,12 +85,16 @@
                             </li>
                         </ul>
                     </li>
+                    <li class="pc-item">
+                        <a href="{{ route('jadwal.index') }}" class="pc-link"><span class="pc-micon">
+                                <i class="ph ph-clock"></i></span><span class="pc-mtext">Jadwal ujian</span></a>
+                    </li>
                     <li class="pc-item pc-hasmenu">
                         <a href="#!" class="pc-link"><span class="pc-micon">
                                 <i class="ph ph-desktop"></i></span><span class="pc-mtext">Ujian</span><span
                                 class="pc-arrow"><i data-feather="chevron-right"></i></span></a>
                         <ul class="pc-submenu">
-                            <li class="pc-item"><a class="pc-link" href="#">Matakuliah</a></li>
+                            <li class="pc-item"><a class="pc-link" href="{{ route('matakuliah.index') }}">Matakuliah</a></li>
                             <li class="pc-item pc-hasmenu">
                                 <a href="#" class="pc-link">Nilai</a>
                             </li>
@@ -133,7 +138,7 @@
                         <a class="pc-head-link dropdown-toggle arrow-none me-0" data-bs-toggle="dropdown"
                             href="#" role="button" aria-haspopup="false" data-bs-auto-close="outside"
                             aria-expanded="false">
-                            <img src="../assets/images/user/avatar-2.jpg" alt="user-image" class="user-avtar">
+                            <img src="{{ asset('../assets/images/user/avatar-2.jpg') }}" alt="user-image" class="user-avtar">
                         </a>
                         <div class="dropdown-menu dropdown-user-profile dropdown-menu-end pc-h-dropdown">
                             <div class="dropdown-body">

@@ -1,4 +1,4 @@
-@extends('partials.admin')
+@extends('partials.dosen')
 @section('title', 'Matakuliah')
 @section('content')
 <div class="pc-content">
@@ -29,11 +29,6 @@
         <!-- [ sample-page ] start -->
         <div class="col-sm-12">
             <div class="card">
-                <div class="card-header">
-                    <div>
-                        <a href="{{ route('matakuliah.create') }}" class="btn btn-primary btn-sm">Tambah Data</a>
-                    </div>
-                </div>
                 <div class="card-body">
                     <table id="example" class="table table-hover  table-bordered nowrap" style="width:100%">
                         <thead>
@@ -45,6 +40,8 @@
                                 <th>Semester</th>
                                 <th>SKS</th>
                                 <th>Dosen Pengampu</th>
+                                <th>Tanggal Mulai</th>
+                                <th>Tanggal Berakhir</th>
                                 <th>Waktu Pengerjaan</th>
                                 <th>Aksi</th>
                                 <th>Soal</th>
@@ -60,6 +57,8 @@
                                 <td>{{ $item->semester }}</td>
                                 <td>{{ $item->sks }}</td>
                                 <td>{{ $item->dosen }}</td>
+                                <td>{{ $item->start }}</td>
+                                <td>{{ $item->end }}</td>
                                 <td>{{ $item->duration }} <span>Menit</span> </td>
                                 <td>
                                     <div class="d-flex  gap-1 justify-content-center">
@@ -73,7 +72,7 @@
                                     </div>
                                 </td>
                                 <td>
-                                    <a href="{{ url('soal/'.$item->id) }}" class="btn btn-primary btn-sm"><i
+                                    <a href="{{ url('soal-dosen/'.$item->id) }}" class="btn btn-primary btn-sm"><i
                                             class="fa-solid fa-plus mr-1"></i> Soal</a>
                                 </td>
                             </tr>

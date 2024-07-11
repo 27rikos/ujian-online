@@ -1,4 +1,4 @@
-@extends('partials.admin')
+@extends('partials.dosen')
 @section('title', 'Soal')
 @section('content')
     <div class="pc-content">
@@ -32,7 +32,7 @@
                 <div class="card">
                     <div class="card-header">
                         <div>
-                            <a href="{{ url('soal/create',$matakuliah->id) }}" class="btn btn-primary btn-sm">Tambah Data</a>
+                            <a href="{{ url('soal-dosen/create/'.$matakuliah->id) }}" class="btn btn-primary btn-sm">Tambah Data</a>
                         </div>
                     </div>
                     <div class="card-body">
@@ -55,8 +55,8 @@
                                     <td>{{ $item->kunci }}</td>
                                     <td>
                                         <div class="d-flex justify-content-center">
-                                            <a href="{{ url("soal/{$item->id}/edit/{$matakuliah->id}") }}" class="btn btn-info btn-sm me-1" title="Edit"><i class="fa-solid fa-pen mr-1"></i></a>
-                                            <form action="{{ url("soal/{$item->id}/delete/{$matakuliah->id}") }}" method="post">
+                                            <a href="{{ url("soal-dosen/{$item->id}/edit/{$matakuliah->id}") }}" class="btn btn-info btn-sm me-1" title="Edit"><i class="fa-solid fa-pen mr-1"></i></a>
+                                            <form action="{{ url("soal-dosen/{$item->id}/delete/{$matakuliah->id}") }}" method="post">
                                                 @method('delete')
                                                 @csrf
                                                 <button type="submit" class="btn btn-danger btn-sm" title="Hapus"><i

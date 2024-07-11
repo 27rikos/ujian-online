@@ -66,35 +66,20 @@
             <div class="navbar-content">
                 <ul class="pc-navbar">
                     <li class="pc-item">
-                        <a href="#" class="pc-link"><span class="pc-micon">
-                                <i class="ph ph-gauge"></i></span><span class="pc-mtext">Dashboard</span></a>
+                        <a href="{{ route('dashboard-mahasiswa') }}" class="pc-link"><span class="pc-micon">
+                        <i class="ph ph-gauge"></i></span><span class="pc-mtext">Dashboard</span></a>
                     </li>
                     <li class="pc-item pc-caption">
                         <i class="ph ph-suitcase"></i>
                     </li>
                     <li class="pc-item pc-hasmenu">
                         <a href="#!" class="pc-link"><span class="pc-micon">
-                                <i class="ph ph-tree-structure"></i> </span><span class="pc-mtext">User</span><span
-                                class="pc-arrow"><i data-feather="chevron-right"></i></span></a>
-                        <ul class="pc-submenu">
-                            <li class="pc-item"><a class="pc-link" href="#">Mahasiswa</a>
-                            </li>
-                            <li class="pc-item pc-hasmenu">
-                                <a href="#" class="pc-link">Dosen</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="pc-item pc-hasmenu">
-                        <a href="#!" class="pc-link"><span class="pc-micon">
                                 <i class="ph ph-desktop"></i></span><span class="pc-mtext">Ujian</span><span
                                 class="pc-arrow"><i data-feather="chevron-right"></i></span></a>
                         <ul class="pc-submenu">
-                            <li class="pc-item"><a class="pc-link" href="#">Matakuliah</a></li>
+                            <li class="pc-item"><a class="pc-link" href="{{ route('mahasiswa-matakuliah') }}">Matakuliah</a></li>
                             <li class="pc-item pc-hasmenu">
                                 <a href="#" class="pc-link">Nilai</a>
-                            </li>
-                            <li class="pc-item pc-hasmenu">
-                                <a href="#" class="pc-link">Jawaban</a>
                             </li>
                         </ul>
                     </li>

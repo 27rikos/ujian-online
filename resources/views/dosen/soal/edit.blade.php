@@ -1,4 +1,4 @@
-@extends('partials.admin')
+@extends('partials.dosen')
 @section('title', 'Soal')
 @section('content')
 <div class="pc-content">
@@ -31,25 +31,29 @@
         <div class="col-sm-12">
             <div class="card">
                 <div class="card-body">
-                    <form action="{{ url('soal/store',$matakuliah->id) }}" method="post">
+                    <form action="{{ url("soal-dosen/{$find->id}/update/{$id}") }}" method="post" >
+                    @method('put')
                         @csrf
                         <div class="form-group">
                             <label for="x">Soal</label>
-                            <input id="x" type="hidden" name="soal">
+                            <input id="x" type="hidden" name="soal" value="{!! $find->soal !!}">
                             <trix-editor input="x"></trix-editor>
                         </div>
                         <div class="form-group">
                             <label for="kesulitan">Tingkat Kesulitan</label>
-                            <select name="kesulitan" id="kesulitan" class="form-control">
+                            <select name="kesulitan" id="kesulitan" class="form-control" value="{{ $find->kesulitan }}">
                                 <option value="">Pilih</option>
-                                <option value="Mudah">Mudah</option>
-                                <option value="Sedang">Sedang</option>
-                                <option value="Sulit">Sulit</option>
+                                @foreach (['Mudah','Sedang','Sulit'] as $option)
+                                    <option value="{{ $option }}"
+                                        {{ $find->kesulitan == $option ? 'selected' : '' }}>
+                                        {{ $option }}
+                                    </option>
+                                @endforeach
                             </select>
                         </div>
                         <div class="form-group">
                             <label for="kunci">Kunci Jawaban</label>
-                            <textarea name="kunci" id="kunci" cols="30" rows="5" class="form-control"></textarea>
+                            <textarea name="kunci" id="kunci" cols="30" rows="5" class="form-control">{{ $find->kunci }}</textarea>
                         </div>
                         <div class="form-group">
                             <button class="btn btn-primary btn-sm" type="submit">Simpan</button>

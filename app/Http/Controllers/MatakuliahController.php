@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Matakuliah;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class MatakuliahController extends Controller
@@ -12,7 +13,8 @@ class MatakuliahController extends Controller
      */
     public function index()
     {
-        return view('admin.matakuliah.index');
+        $data = Matakuliah::all();
+        return view('admin.matakuliah.index', compact('data'));
     }
 
     /**
@@ -20,7 +22,8 @@ class MatakuliahController extends Controller
      */
     public function create()
     {
-        //
+        $data = User::where('role', 'dosen')->get();
+        return view('admin.matakuliah.create', compact('data'));
     }
 
     /**
@@ -28,7 +31,18 @@ class MatakuliahController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'kode_matakuliah' => 'required',
+            'matakuliah' => 'required',
+            'prodi' => 'required',
+            'semester' => 'required',
+            'sks' => 'required',
+            'dosen' => 'required',
+            'duration' => 'required',
+        ]);
+        $data = Matakuliah::create($request->all());
+        $data->save();
+        return redirect()->route('matakuliah.index')->with('toast_success', 'Matakuliah Ditambahkan');
     }
 
     /**
@@ -42,24 +56,32 @@ class MatakuliahController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Matakuliah $matakuliah)
+    public function edit($id)
     {
-        //
+        $dosen = User::where('role', 'dosen')->get();
+        $data = Matakuliah::findOrFail($id);
+        return view('admin.matakuliah.edit', compact('data', 'dosen'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Matakuliah $matakuliah)
+    public function update(Request $request, $id)
     {
-        //
+        $data = Matakuliah::findOrFail($id);
+        $data->update($request->all());
+        $data->save();
+        return redirect()->route('matakuliah.index')->with('toast_success', 'Matakuliah Diubah');
+
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Matakuliah $matakuliah)
+    public function destroy($id)
     {
-        //
+        $data = Matakuliah::findOrFail($id);
+        $data->delete();
+        return redirect()->route('matakuliah.index')->with('toast_success', 'Matakuliah Dihapus');
     }
 }
