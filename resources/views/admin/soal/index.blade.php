@@ -41,6 +41,7 @@
                                 <tr>
                                     <th>No</th>
                                     <th>Pertanyaan</th>
+                                    <th>Jenis Ujian</th>
                                     <th>Tingkat Kesulitan</th>
                                     <th>Kunci Jawaban</th>
                                     <th>Aksi</th>
@@ -51,6 +52,7 @@
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{!! $item->soal !!}</td>
+                                    <td>{{ $item->jenis_ujian }}</td>
                                     <td>{{ $item->kesulitan }}</td>
                                     <td>{{ $item->kunci }}</td>
                                     <td>

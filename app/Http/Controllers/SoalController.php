@@ -25,10 +25,12 @@ class SoalController extends Controller
             'soal' => 'required',
             'kesulitan' => 'required',
             'kunci' => 'required',
+            'jenis_ujian' => 'required',
         ]);
         $data = Soal::create([
             'id_matakuliah' => $id,
             'soal' => $request->soal,
+            'jenis_ujian' => $request->jenis_ujian,
             'kesulitan' => $request->kesulitan,
             'kunci' => $request->kunci,
         ]);
@@ -47,6 +49,7 @@ class SoalController extends Controller
         $data = Soal::findOrFail($soal);
         $data->update([
             'soal' => $request->soal,
+            'jenis_ujian' => $request->jenis_ujian,
             'kesulitan' => $request->kesulitan,
             'kunci' => $request->kunci,
         ]);

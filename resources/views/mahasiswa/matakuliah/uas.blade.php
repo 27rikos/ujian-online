@@ -53,7 +53,7 @@
                                 <td>{{ $item->sks }}</td>
                                 <td>{{ $item->dosen }}</td>
                                 <td>
-                                    <a href="{{ url('soal-mahasiswa/'.$item->id.'/uts') }}" class="btn btn-primary btn-sm">Soal</a>
+                                    <a href="{{ url('soal-mahasiswa/'.$item->id.'/uas') }}" class="btn btn-primary btn-sm">Soal</a>
                                 </td>
                             </tr>
                             @endforeach
