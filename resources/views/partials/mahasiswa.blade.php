@@ -77,7 +77,8 @@
                                 <i class="ph ph-desktop"></i></span><span class="pc-mtext">Ujian</span><span
                                 class="pc-arrow"><i data-feather="chevron-right"></i></span></a>
                         <ul class="pc-submenu">
-                            <li class="pc-item"><a class="pc-link" href="{{ route('mahasiswa-matakuliah') }}">Matakuliah</a></li>
+                            <li class="pc-item"><a class="pc-link" href="{{ route('mahasiswa-matakuliah-uts') }}">UTS</a></li>
+                            <li class="pc-item"><a class="pc-link" href="{{ route('mahasiswa-matakuliah-uas') }}">UAS</a></li>
                             <li class="pc-item pc-hasmenu">
                                 <a href="#" class="pc-link">Nilai</a>
                             </li>

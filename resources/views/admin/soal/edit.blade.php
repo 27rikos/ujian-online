@@ -40,6 +40,18 @@
                             <trix-editor input="x"></trix-editor>
                         </div>
                         <div class="form-group">
+                            <label for="jenis_ujian" class="mb-2">Jenis Ujian</label>
+                            <select name="jenis_ujian" id="jenis_ujian" class="form-control" value="{{ $find->jenis_ujian }}">
+                                <option value="">Pilih</option>
+                                @foreach (['UTS', 'UAS',] as $option)
+                                <option value="{{ $option }}"
+                                    {{ $find->jenis_ujian == $option ? 'selected' : '' }}>
+                                    {{ $option }}
+                                </option>
+                            @endforeach
+                            </select>
+                        </div>
+                        <div class="form-group">
                             <label for="kesulitan">Tingkat Kesulitan</label>
                             <select name="kesulitan" id="kesulitan" class="form-control" value="{{ $find->kesulitan }}">
                                 <option value="">Pilih</option>

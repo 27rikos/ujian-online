@@ -13,6 +13,7 @@ class JadwalController extends Controller
      */
     public function index()
     {
+
         $jadwal = Jadwal::all();
         return view('admin.jadwal.index', compact('jadwal'));
     }

@@ -37,7 +37,7 @@
         <div class="col-sm-12">
             <div class="card">
                 <div class="card-body">
-                    <form id="" action="{{ url('simpan-jawaban/'.$matakuliah->id.'/uts') }}" method="post">
+                    <form id="" action="{{ url('simpan-jawaban/'.$matakuliah->id.'/uas') }}" method="post">
                     @csrf
                     @foreach ($data as $item)
                         <div class="d-flex mb-2">

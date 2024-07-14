@@ -34,6 +34,7 @@
                             <a href="{{ route('jadwal.create') }}" class="btn btn-primary btn-sm">Tambah Data</a>
                         </div>
                     </div>
+
                     <div class="card-body">
                         <table id="example" class="table table-bordered nowrap" style="width:100%">
                             <thead>

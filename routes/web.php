@@ -6,6 +6,7 @@ use App\Http\Controllers\DosenDataController;
 use App\Http\Controllers\DosenMatakuliahController;
 use App\Http\Controllers\DosenSoalController;
 use App\Http\Controllers\JadwalController;
+use App\Http\Controllers\JawabanController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\MahasiswaController;
 use App\Http\Controllers\MahasiswaDataController;
@@ -65,8 +66,11 @@ Route::group(['middleware' => ['auth']], function () {
 Route::group(['middleware' => ['auth']], function () {
     Route::group(['middleware' => ['UserCheck:mahasiswa']], function () {
         Route::get('/dashboard-mahasiswa', [MahasiswaController::class, 'index'])->name('dashboard-mahasiswa');
-        Route::get('mahasiswa-matakuliah', [MahasiswaMatakuliahController::class, 'index'])->name('mahasiswa-matakuliah');
-        Route::get('soal-mahasiswa/{id}', [MahasiswaSoalController::class, 'index']);
-
+        Route::get('mahasiswa-matakuliah-uts', [MahasiswaMatakuliahController::class, 'uts'])->name('mahasiswa-matakuliah-uts');
+        Route::get('mahasiswa-matakuliah-uas', [MahasiswaMatakuliahController::class, 'uas'])->name('mahasiswa-matakuliah-uas');
+        Route::get('soal-mahasiswa/{id}/uts', [MahasiswaSoalController::class, 'uts']);
+        Route::get('soal-mahasiswa/{id}/uas', [MahasiswaSoalController::class, 'uas']);
+        Route::post('simpan-jawaban/{id_matakuliah}/uts', [JawabanController::class, 'uts']);
+        Route::post('simpan-jawaban/{id_matakuliah}/uas', [JawabanController::class, 'uas']);
     });
 });

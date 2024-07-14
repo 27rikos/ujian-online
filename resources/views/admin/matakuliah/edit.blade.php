@@ -52,9 +52,6 @@
                                         {{ $option }}
                                     </option>
                                 @endforeach
-                                <option value="TI">TI</option>
-                                <option value="SI">SI</option>
-                                <option value="PTI">PTI</option>
                             </select>
                         </div>
                         <div class="form-group">
