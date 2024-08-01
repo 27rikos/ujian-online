@@ -13,6 +13,10 @@ use App\Http\Controllers\MahasiswaDataController;
 use App\Http\Controllers\MahasiswaMatakuliahController;
 use App\Http\Controllers\MahasiswaSoalController;
 use App\Http\Controllers\MatakuliahController;
+use App\Http\Controllers\NilaiController;
+use App\Http\Controllers\NilaiOnDosenController;
+use App\Http\Controllers\NilaiOnMahasiswaController;
+use App\Http\Controllers\PDFController;
 use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\SoalController;
 use Illuminate\Support\Facades\Route;
@@ -47,12 +51,17 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('soal/{soal}/edit/{matakuliah}', [SoalController::class, 'edit']);
         Route::put('soal/{soal}/update/{matakuliah}', [SoalController::class, 'update']);
         Route::delete('soal/{soal}/delete/{matakuliah}', [SoalController::class, 'destroy']);
+        Route::get('nilai-matakuliah', [NilaiController::class, 'index'])->name('nilai');
+        Route::get('show-nilai/{id}', [NilaiController::class, 'show']);
+        Route::get('show-nilai/{id}/edit/{id_nilai}', [NilaiController::class, 'edit']);
+        Route::put('show-nilai/{id}/update/{id_nilai}', [NilaiController::class, 'update']);
+        Route::get('generate-pdf/{id}', [PDFController::class, 'adminpdf']);
     });
 
 });
 Route::group(['middleware' => ['auth']], function () {
     Route::group(['middleware' => ['UserCheck:dosen']], function () {
-        Route::get('/dashboard-dosen', [DosenController::class, 'index']);
+        Route::get('/dashboard-dosen', [DosenController::class, 'index'])->name('dashboard-dosen');
         Route::resource('matakuliah-dosen', DosenMatakuliahController::class);
         Route::get('soal-dosen/{id}', [DosenSoalController::class, 'index']);
         Route::get('soal-dosen/create/{id}', [DosenSoalController::class, 'create']);
@@ -60,6 +69,11 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('soal-dosen/{soal}/edit/{matakuliah}', [DosenSoalController::class, 'edit']);
         Route::put('soal-dosen/{soal}/update/{matakuliah}', [DosenSoalController::class, 'update']);
         Route::delete('soal-dosen/{soal}/delete/{matakuliah}', [DosenSoalController::class, 'destroy']);
+        Route::get('dosen-nilai-matakuliah', [NilaiOnDosenController::class, 'index'])->name('nilai-dosen');
+        Route::get('dosen-show-nilai/{id}', [NilaiOnDosenController::class, 'show']);
+        Route::get('dosen-show-nilai/{id}/edit/{id_nilai}', [NilaiOnDosenController::class, 'edit']);
+        Route::put('dosen-show-nilai/{id}/update/{id_nilai}', [NilaiOnDosenController::class, 'update']);
+        Route::get('generate/{id}', [PDFController::class, 'dosenpdf']);
 
     });
 });
@@ -72,5 +86,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('soal-mahasiswa/{id}/uas', [MahasiswaSoalController::class, 'uas']);
         Route::post('simpan-jawaban/{id_matakuliah}/uts', [JawabanController::class, 'uts']);
         Route::post('simpan-jawaban/{id_matakuliah}/uas', [JawabanController::class, 'uas']);
+        Route::get('mahasiswa-nilai', [NilaiOnMahasiswaController::class, 'index'])->name('mahasiswa-nilai');
+        Route::get('mahasiswa-show-nilai/{id}', [NilaiOnMahasiswaController::class, 'show']);
     });
 });

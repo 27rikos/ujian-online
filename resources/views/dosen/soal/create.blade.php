@@ -39,6 +39,14 @@
                             <trix-editor input="x"></trix-editor>
                         </div>
                         <div class="form-group">
+                            <label for="jenis_ujian" class="mb-2">Jenis Ujian</label>
+                            <select name="jenis_ujian" id="jenis_ujian" class="form-control">
+                                <option value="">Pilih</option>
+                                <option value="UTS">UTS</option>
+                                <option value="UAS">UAS</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
                             <label for="kesulitan">Tingkat Kesulitan</label>
                             <select name="kesulitan" id="kesulitan" class="form-control">
                                 <option value="">Pilih</option>

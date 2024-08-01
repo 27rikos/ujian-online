@@ -3,7 +3,7 @@
 <!-- [Head] start -->
 
 <head>
-    <title>Home | Gradient Able Dashboard Template</title>
+    <title>Dosen | @yield('title')</title>
     <!-- [Meta] -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
@@ -67,7 +67,7 @@
             <div class="navbar-content">
                 <ul class="pc-navbar">
                     <li class="pc-item">
-                        <a href="#" class="pc-link"><span class="pc-micon">
+                        <a href="{{ route('dashboard-dosen') }}" class="pc-link"><span class="pc-micon">
                                 <i class="ph ph-gauge"></i></span><span class="pc-mtext">Dashboard</span></a>
                     </li>
                     <li class="pc-item pc-caption">
@@ -81,7 +81,7 @@
                         <ul class="pc-submenu">
                             <li class="pc-item"><a class="pc-link" href="{{ route('matakuliah-dosen.index') }}">Matakuliah</a></li>
                             <li class="pc-item pc-hasmenu">
-                                <a href="#" class="pc-link">Nilai</a>
+                                <a href="{{ route('nilai-dosen') }}" class="pc-link">Nilai</a>
                             </li>
                         </ul>
                     </li>

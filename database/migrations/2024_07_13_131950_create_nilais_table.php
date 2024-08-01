@@ -16,9 +16,9 @@ return new class extends Migration
             $table->foreignId('id_matakuliah')->constrained('matakuliahs')->cascadeOnDelete()->cascadeOnUpdate();
             $table->string('nama_mahasiswa');
             $table->string('npm');
-            $table->decimal('tugas')->nullable();
-            $table->decimal('uts')->nullable();
-            $table->decimal('uas')->nullable();
+            $table->double('tugas')->nullable();
+            $table->double('uts')->nullable();
+            $table->double('uas')->nullable();
             $table->timestamps();
         });
     }

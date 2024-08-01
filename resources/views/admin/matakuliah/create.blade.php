@@ -51,7 +51,7 @@
                             </select>
                         </div>
                         <div class="form-group">
-                            <label for="semester" class="mb-2">Program Studi</label>
+                            <label for="semester" class="mb-2">Semester</label>
                             <select name="semester" id="semester" class="form-control">
                                 <option value="">Pilih Semester</option>
                                 <option value="1">1</option>

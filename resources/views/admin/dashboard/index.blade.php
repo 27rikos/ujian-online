@@ -7,41 +7,27 @@
             <div class="col-md-6 col-xl-3">
                 <div class="card bg-grd-primary order-card">
                     <div class="card-body">
-                        <h6 class="text-white">Orders Received</h6>
-                        <h2 class="text-end text-white"><i class="feather icon-shopping-cart float-start"></i><span>486</span>
+                        <h6 class="text-white">Jumlah User</h6>
+                        <h2 class="text-end text-white"><i class="fa-solid fa-users float-start"></i><span>{{ $user }}</span>
                         </h2>
-                        <p class="m-b-0">Completed Orders<span class="float-end">351</span></p>
                     </div>
                 </div>
             </div>
             <div class="col-md-6 col-xl-3">
                 <div class="card bg-grd-success order-card">
                     <div class="card-body">
-                        <h6 class="text-white">Total Sales</h6>
-                        <h2 class="text-end text-white"><i class="feather icon-tag float-start"></i><span>1641</span>
+                        <h6 class="text-white">Jumlah Matakuliah</h6>
+                        <h2 class="text-end text-white"><i class="fa-solid fa-person-chalkboard float-start"></i><span>{{ $matkul }}</span>
                         </h2>
-                        <p class="m-b-0">This Month<span class="float-end">213</span></p>
                     </div>
                 </div>
             </div>
             <div class="col-md-6 col-xl-3">
                 <div class="card bg-grd-warning order-card">
                     <div class="card-body">
-                        <h6 class="text-white">Revenue</h6>
-                        <h2 class="text-end text-white"><i class="feather icon-repeat float-start"></i><span>$42,562</span>
+                        <h6 class="text-white">Jumlah Soal</h6>
+                        <h2 class="text-end text-white"><i class="fa-solid fa-circle-question float-start"></i><span>{{ $soal }}</span>
                         </h2>
-                        <p class="m-b-0">This Month<span class="float-end">$5,032</span></p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-6 col-xl-3">
-                <div class="card bg-grd-danger order-card">
-                    <div class="card-body">
-                        <h6 class="text-white">Total Profit</h6>
-                        <h2 class="text-end text-white"><i class="feather icon-award float-start"></i><span>$9,562</span>
-                        </h2>
-                        <p class="m-b-0">This Month<span class="float-end">$542</span></p>
                     </div>
                 </div>
             </div>

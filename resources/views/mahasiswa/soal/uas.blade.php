@@ -1,4 +1,5 @@
 @extends('partials.mahasiswa')
+@section('title','UAS')
 @section('content')
 <div class="pc-content">
     <!-- [ breadcrumb ] start -->

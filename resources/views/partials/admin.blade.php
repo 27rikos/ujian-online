@@ -96,7 +96,7 @@
                         <ul class="pc-submenu">
                             <li class="pc-item"><a class="pc-link" href="{{ route('matakuliah.index') }}">Matakuliah</a></li>
                             <li class="pc-item pc-hasmenu">
-                                <a href="#" class="pc-link">Nilai</a>
+                                <a href="{{ route('nilai') }}" class="pc-link">Nilai</a>
                             </li>
                         </ul>
                     </li>
