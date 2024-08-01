@@ -55,7 +55,7 @@
                             </select>
                         </div>
                         <div class="form-group">
-                            <label for="semester" class="mb-2">Program Studi</label>
+                            <label for="semester" class="mb-2">Semester</label>
                             <select name="semester" id="semester" class="form-control" value="{{ $data->semester }}">
                                 <option value="">Pilih Semester</option>
                                 @foreach (['1', '2', '3', '4','5','6','7',8] as $option)

@@ -3,7 +3,7 @@
 <!-- [Head] start -->
 
 <head>
-    <title>Home | Gradient Able Dashboard Template</title>
+    <title>Mahasiswa | @yield('title')</title>
     <!-- [Meta] -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
@@ -80,7 +80,7 @@
                             <li class="pc-item"><a class="pc-link" href="{{ route('mahasiswa-matakuliah-uts') }}">UTS</a></li>
                             <li class="pc-item"><a class="pc-link" href="{{ route('mahasiswa-matakuliah-uas') }}">UAS</a></li>
                             <li class="pc-item pc-hasmenu">
-                                <a href="#" class="pc-link">Nilai</a>
+                                <a href="{{ route('mahasiswa-nilai') }}" class="pc-link">Nilai</a>
                             </li>
                         </ul>
                     </li>
@@ -119,7 +119,7 @@
                         <a class="pc-head-link dropdown-toggle arrow-none me-0" data-bs-toggle="dropdown"
                             href="#" role="button" aria-haspopup="false" data-bs-auto-close="outside"
                             aria-expanded="false">
-                            <img src="../assets/images/user/avatar-2.jpg" alt="user-image" class="user-avtar">
+                            <img src="{{ asset('../assets/images/user/avatar-2.jpg') }}" alt="user-image" class="user-avtar">
                         </a>
                         <div class="dropdown-menu dropdown-user-profile dropdown-menu-end pc-h-dropdown">
                             <div class="dropdown-body">

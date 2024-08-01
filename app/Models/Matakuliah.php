@@ -9,4 +9,9 @@ class Matakuliah extends Model
 {
     use HasFactory;
     protected $guarded = [];
+
+    public function nilai()
+    {
+        return $this->hasMany(Nilai::class, 'id_matakuliah');
+    }
 }

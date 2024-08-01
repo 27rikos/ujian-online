@@ -1,5 +1,5 @@
-@extends('partials.dosen')
-@section('title', 'Matakuliah')
+@extends('partials.mahasiswa')
+@section('title','Nilai Ujian')
 @section('content')
 <div class="pc-content">
     <!-- [ breadcrumb ] start -->
@@ -9,7 +9,7 @@
                 <div class="row align-items-center">
                     <div class="col-md-12">
                         <div class="page-header-title border-bottom pb-2 mb-2">
-                            <h4 class="mb-0">Matakuliah</h4>
+                            <h4 class="mb-0">Nilai Matakuliah</h4>
                         </div>
                     </div>
                     <div class="col-md-12">
@@ -34,36 +34,25 @@
                         <thead>
                             <tr>
                                 <th>No</th>
-                                <th>Kode Matakuliah</th>
                                 <th>Matakuliah</th>
                                 <th>Prodi</th>
                                 <th>Semester</th>
                                 <th>SKS</th>
                                 <th>Dosen Pengampu</th>
-                                <th>Waktu Pengerjaan</th>
-                                <th>Aksi</th>
-                                <th>Soal</th>
+                                <th>Nilai</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($data as $item)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
-                                <td>{{ $item->kode_matakuliah }}</td>
                                 <td>{{ $item->matakuliah }}</td>
                                 <td>{{ $item->prodi }}</td>
                                 <td>{{ $item->semester }}</td>
                                 <td>{{ $item->sks }}</td>
                                 <td>{{ $item->dosen }}</td>
-                                <td>{{ $item->duration }} <span>Menit</span> </td>
                                 <td>
-                                    <div class="d-flex  gap-1 justify-content-center">
-                                        <a href="{{ route('matakuliah-dosen.edit',$item->id) }}" class="btn btn-info btn-sm mr-1" title="Edit"><i class="fa-solid fa-pen mr-1"></i></a>
-                                    </div>
-                                </td>
-                                <td>
-                                    <a href="{{ url('soal-dosen/'.$item->id) }}" class="btn btn-primary btn-sm"><i
-                                            class="fa-solid fa-plus mr-1"></i> Soal</a>
+                                    <a href="{{ url('mahasiswa-show-nilai/'.$item->id) }}" class="btn btn-primary btn-sm">Nilai</a>
                                 </td>
                             </tr>
                             @endforeach

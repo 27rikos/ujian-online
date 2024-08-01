@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Matakuliah;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class DosenMatakuliahController extends Controller
@@ -43,17 +44,22 @@ class DosenMatakuliahController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Matakuliah $matakuliah)
+    public function edit($id)
     {
-        //
+        $dosen = User::where('role', 'dosen')->get();
+        $data = Matakuliah::findOrFail($id);
+        return view('dosen.matakuliah.edit', compact('data', 'dosen'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Matakuliah $matakuliah)
+    public function update(Request $request, $id)
     {
-        //
+        $data = Matakuliah::findOrFail($id);
+        $data->update($request->all());
+        $data->save();
+        return redirect()->route('matakuliah-dosen.index')->with('toast_success', 'Matakuliah diedit');
     }
 
     /**

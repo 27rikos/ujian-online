@@ -3,201 +3,185 @@
 namespace App\Http\Controllers;
 
 use App\Models\Nilai;
-use App\Models\Soal;
+use App\Models\Soal; // Make sure to include the Nilai model
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Sastrawi\Stemmer\StemmerFactory;
 
 class JawabanController extends Controller
 {
     public function uts(Request $request, $id_matakuliah)
     {
-        $data = $request->only(['jawaban1', 'jawaban2', 'jawaban3', 'jawaban4', 'jawaban5']);
-
-        // Preprocess the user's answers
-        $preprocessed_texts = $this->preprocessTexts($data);
-
-        // Get all key answers from the database
-        $soals = Soal::where('jenis_ujian', 'UTS')->where('id_matakuliah', $id_matakuliah)->get();
-
-        // Preprocess the key answers
-        $preprocessed_key_answers = [];
-        foreach ($soals as $soal) {
-            $preprocessed_key_answers[$soal->id] = $this->preprocessText($soal->kunci);
-        }
-
-        // Calculate TF-IDF vectors for user answers and key answers
-        $tfidf_scores = $this->calculateTfidf($preprocessed_texts, $preprocessed_key_answers);
-
-        // Calculate cosine similarity between user answers and key answers
-        $similarity_scores = $this->calculateCosineSimilarity($tfidf_scores, $soals);
-
-        // Convert similarity scores to percentage
-        $percentage_scores = $this->convertToPercentage($similarity_scores);
-
-        // Format the output and calculate the average score
-        list($formatted_output, $average_score) = $this->formatOutput($percentage_scores);
-
-        // Store data nilai akhir:
-        $nama = Auth::user()->name;
-        $npm = Auth::user()->nim;
-
-        // Save the final score to the database
-        $nilai = Nilai::where('npm', $npm)->where('id_matakuliah', $id_matakuliah)->first();
-        if ($nilai) {
-            $nilai->uts = $average_score;
-        } else {
-            $nilai = new Nilai;
-            $nilai->npm = $npm;
-            $nilai->nama_mahasiswa = $nama;
-            $nilai->id_matakuliah = $id_matakuliah;
-            $nilai->uts = $average_score;
-        }
-        $nilai->save();
-
-        return redirect()->route('mahasiswa-matakuliah-uts')->with('toast_success', 'Ujian Telah Diselesaikan');
+        return $this->processExam($request, $id_matakuliah, 'uts');
     }
 
     public function uas(Request $request, $id_matakuliah)
     {
-        $data = $request->only(['jawaban1', 'jawaban2', 'jawaban3', 'jawaban4', 'jawaban5']);
+        return $this->processExam($request, $id_matakuliah, 'uas');
+    }
 
-        // Preprocess the user's answers
-        $preprocessed_texts = $this->preprocessTexts($data);
+    private function processExam(Request $request, $id_matakuliah, $jenis_ujian)
+    {
+        // Mendapatkan jawaban dari request
+        $jawaban = [
+            $request->input('jawaban1'),
+            $request->input('jawaban2'),
+            $request->input('jawaban3'),
+            $request->input('jawaban4'),
+            $request->input('jawaban5'),
+        ];
 
-        // Get all key answers from the database
-        $soals = Soal::where('jenis_ujian', 'UAS')->where('id_matakuliah', $id_matakuliah)->get();
-
-        // Preprocess the key answers
-        $preprocessed_key_answers = [];
-        foreach ($soals as $soal) {
-            $preprocessed_key_answers[$soal->id] = $this->preprocessText($soal->kunci);
+        // Melakukan preprocess pada jawaban
+        $preprocessed_texts = [];
+        foreach ($jawaban as $text) {
+            $preprocessed_texts[] = $this->preprocessText($text);
         }
 
-        // Calculate TF-IDF vectors for user answers and key answers
-        $tfidf_scores = $this->calculateTfidf($preprocessed_texts, $preprocessed_key_answers);
+        // Mendapatkan kunci jawaban dari database
+        $soals = Soal::where('jenis_ujian', ucfirst($jenis_ujian))
+            ->where('id_matakuliah', $id_matakuliah)
+            ->get();
 
-        // Calculate cosine similarity between user answers and key answers
-        $similarity_scores = $this->calculateCosineSimilarity($tfidf_scores, $soals);
+        $kunci_jawaban = [];
+        foreach ($soals as $soal) {
+            $kunci_jawaban[] = $this->preprocessText($soal->kunci);
+        }
 
-        // Convert similarity scores to percentage
-        $percentage_scores = $this->convertToPercentage($similarity_scores);
+        // Menggabungkan jawaban dan kunci jawaban untuk perhitungan IDF
+        $all_texts = array_merge($preprocessed_texts, $kunci_jawaban);
 
-        // Format the output and calculate the average score
-        list($formatted_output, $average_score) = $this->formatOutput($percentage_scores);
+        // Menghitung TF-IDF untuk jawaban dan kunci jawaban
+        $tfidf_scores = [];
+        $idf = $this->computeIdf($all_texts);
+        for ($i = 0; $i < count($preprocessed_texts); $i++) {
+            $tf_jawaban = $this->computeTf($preprocessed_texts[$i]);
+            $tf_kunci = $this->computeTf($kunci_jawaban[$i]);
 
-        // Store data nilai akhir:
+            $tfidf_jawaban = $this->computeTfidfScore($preprocessed_texts[$i], $tf_jawaban, $idf);
+            $tfidf_kunci = $this->computeTfidfScore($kunci_jawaban[$i], $tf_kunci, $idf);
+
+            $tfidf_scores[$i] = [
+                'tf_jawaban' => $tf_jawaban,
+                'idf' => $idf,
+                'tfidf_jawaban' => $tfidf_jawaban,
+                'tfidf_kunci' => $tfidf_kunci,
+            ];
+        }
+
+        // Menghitung cosine similarity antara jawaban dan kunci jawaban
+        $similarity_scores = [];
+        foreach ($tfidf_scores as $index => $scores) {
+            $similarity_scores[$index] = $this->cosineSimilarity($scores['tfidf_jawaban'], $scores['tfidf_kunci']);
+        }
+
+        // Mengonversi similarity scores menjadi persentase
+        $percentage_scores = [];
+        foreach ($similarity_scores as $index => $similarity) {
+            $percentage_scores[$index] = $similarity * 100;
+        }
+
+        // Store data nilai akhir
         $nama = Auth::user()->name;
         $npm = Auth::user()->nim;
+        $average_score = array_sum($percentage_scores) / count($percentage_scores); // Calculate average score in percentage
 
         // Save the final score to the database
         $nilai = Nilai::where('npm', $npm)->where('id_matakuliah', $id_matakuliah)->first();
+        $average_score = floatval(number_format($average_score, 2, '.', '')); // Convert to float with 2 decimal places
+
         if ($nilai) {
-            $nilai->uas = $average_score;
+            $nilai->{$jenis_ujian} = $average_score;
         } else {
             $nilai = new Nilai;
             $nilai->npm = $npm;
             $nilai->nama_mahasiswa = $nama;
             $nilai->id_matakuliah = $id_matakuliah;
-            $nilai->uas = $average_score;
+            $nilai->{$jenis_ujian} = $average_score;
         }
         $nilai->save();
 
-        return redirect()->route('mahasiswa-matakuliah-uas')->with('toast_success', 'Ujian Telah Diselesaikan');
+        return redirect()->route("mahasiswa-matakuliah-$jenis_ujian")->with('toast_success', 'Ujian Telah Diselesaikan');
     }
 
     private function preprocessText($text)
     {
+        // Step 1: Case folding
         $text = strtolower($text);
-        $text = preg_replace('/[^A-Za-z0-9\s]/', '', $text);
+
+        // Step 2: Tokenization
         $words = explode(' ', $text);
+
+        // Step 3: Stopword removal
         $stopWords = [
             'yang', 'untuk', 'dan', 'di', 'pada', 'dengan', 'adalah', 'atau',
             'ke', 'dari', 'ini', 'itu', 'oleh', 'sebagai', 'dalam', 'karena',
             'ada', 'mereka', 'juga', 'sangat', 'lagi', 'sudah', 'tersebut',
         ];
         $filteredWords = array_diff($words, $stopWords);
-        $stemmedWords = array_map(function ($word) {
-            return rtrim($word, 'kan');
-        }, $filteredWords);
-        return implode(' ', $stemmedWords);
-    }
 
-    private function preprocessTexts($texts)
-    {
-        $preprocessed_texts = [];
-        foreach ($texts as $key => $value) {
-            if (is_string($value)) {
-                $preprocessed_texts[$key] = $this->preprocessText($value);
-            }
-        }
-        return $preprocessed_texts;
-    }
-
-    private function calculateTfidf($preprocessed_texts, $preprocessed_key_answers)
-    {
-        $all_texts = array_merge($preprocessed_texts, $preprocessed_key_answers);
-        $num_docs = count($all_texts);
-
-        $tfidf_scores = [];
-
-        foreach ($preprocessed_key_answers as $key => $preprocessed_key_answer) {
-            $tfidf_scores[$key] = $this->computeTfidf($preprocessed_key_answer, $all_texts, $num_docs);
+        // Step 4: Stemming
+        $stemmerFactory = new StemmerFactory();
+        $stemmer = $stemmerFactory->createStemmer();
+        $stemmedWords = [];
+        foreach ($filteredWords as $word) {
+            $stemmedWords[] = $stemmer->stem($word);
         }
 
-        foreach ($preprocessed_texts as $key => $preprocessed_text) {
-            $tfidf_scores[$key] = $this->computeTfidf($preprocessed_text, $all_texts, $num_docs);
-        }
+        // Step 5: Reconstruct text
+        $processedText = implode(' ', $stemmedWords);
 
-        return $tfidf_scores;
+        return $processedText;
     }
 
-    private function computeTfidf($text, $all_texts, $num_docs)
+    private function computeTf($text)
     {
         $words = explode(' ', $text);
         $word_counts = array_count_values($words);
-        $total_terms = count($words);
-
-        // Compute TF
         $tf = [];
+
+        $total_words = count($words);
         foreach ($word_counts as $word => $count) {
-            $tf[$word] = $count / $total_terms;
+            $tf[$word] = $count / $total_words;
         }
 
-        // Compute IDF
+        return $tf;
+    }
+
+    private function computeIdf($texts)
+    {
+        $num_docs = count($texts);
         $idf = [];
-        foreach ($word_counts as $word => $count) {
-            $document_frequency = 0;
-            foreach ($all_texts as $text) {
-                if (strpos($text, $word) !== false) {
-                    $document_frequency++;
+
+        foreach ($texts as $text) {
+            $words = explode(' ', $text);
+            foreach ($words as $word) {
+                if (!isset($idf[$word])) {
+                    $document_frequency = 0;
+                    foreach ($texts as $doc) {
+                        if (strpos($doc, $word) !== false) {
+                            $document_frequency++;
+                        }
+                    }
+                    $idf[$word] = log(($num_docs + 1) / ($document_frequency + 1)) + 1;
                 }
             }
-            $idf[$word] = log($num_docs / ($document_frequency ?: 1)); // Avoid division by zero
         }
 
-        // Compute TF-IDF
+        return $idf;
+    }
+
+    private function computeTfidfScore($text, $tf, $idf)
+    {
         $tfidf = [];
-        foreach ($tf as $word => $tf_value) {
-            $tfidf[$word] = $tf_value * ($idf[$word] ?? 0);
+        $words = explode(' ', $text);
+
+        foreach ($words as $word) {
+            if (isset($tf[$word]) && isset($idf[$word])) {
+                $tfidf[$word] = $tf[$word] * $idf[$word];
+            }
         }
 
         return $tfidf;
-    }
-
-    private function calculateCosineSimilarity($tfidf_scores, $soals)
-    {
-        $similarity_scores = [];
-
-        foreach ($soals as $soal) {
-            $key_answer_vector = $tfidf_scores[$soal->id];
-            foreach ($tfidf_scores as $key => $user_answer_vector) {
-                if (strpos($key, 'jawaban') === 0) {
-                    $similarity_scores[$key][$soal->id] = $this->cosineSimilarity($key_answer_vector, $user_answer_vector);
-                }
-            }
-        }
-
-        return $similarity_scores;
     }
 
     private function cosineSimilarity($vectorA, $vectorB)
@@ -222,32 +206,5 @@ class JawabanController extends Controller
         }
 
         return $dotProduct / (sqrt($magnitudeA) * sqrt($magnitudeB));
-    }
-
-    private function convertToPercentage($similarity_scores)
-    {
-        $percentage_scores = [];
-        foreach ($similarity_scores as $user_answer => $key_scores) {
-            foreach ($key_scores as $key_id => $similarity) {
-                $percentage_scores[$user_answer] = $percentage_scores[$user_answer] ?? 0;
-                $percentage_scores[$user_answer] = max($percentage_scores[$user_answer], $similarity * 100); // Get the highest similarity score
-            }
-        }
-        return $percentage_scores;
-    }
-
-    private function formatOutput($percentage_scores)
-    {
-        $formatted_output = [];
-        $total_percentage = 0;
-        $count = count($percentage_scores);
-
-        foreach ($percentage_scores as $user_answer => $percentage) {
-            $formatted_output[] = "$user_answer=" . number_format($percentage, 2) . "%";
-            $total_percentage += $percentage;
-        }
-
-        $average_score = $total_percentage / $count;
-        return [implode(', ', $formatted_output), $average_score];
     }
 }

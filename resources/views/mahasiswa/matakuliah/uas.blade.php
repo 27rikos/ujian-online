@@ -1,4 +1,5 @@
 @extends('partials.mahasiswa')
+@section('title','Matakuliah')
 @section('content')
 <div class="pc-content">
     <!-- [ breadcrumb ] start -->
@@ -53,7 +54,7 @@
                                 <td>{{ $item->sks }}</td>
                                 <td>{{ $item->dosen }}</td>
                                 <td>
-                                    <a href="{{ url('soal-mahasiswa/'.$item->id.'/uas') }}" class="btn btn-primary btn-sm">Soal</a>
+                                    <a href="{{ url('soal-mahasiswa/'.$item->id.'/uas') }}" class="btn btn-primary btn-sm ">Soal</a>
                                 </td>
                             </tr>
                             @endforeach

@@ -1,5 +1,5 @@
 @extends('partials.admin')
-@section('title', 'Mahasiswa')
+@section('title', 'Dosen')
 @section('content')
     <div class="pc-content">
         <!-- [ breadcrumb ] start -->
@@ -35,7 +35,7 @@
                             @method('put')
                             @csrf
                             <div class="form-group">
-                                <label for="nama" class="mb-2">Nama Mahasiswa</label>
+                                <label for="nama" class="mb-2">Nama Dosen</label>
                                 <input type="text" class="form-control" name="name" value="{{ $data->name }}">
                             </div>
                             <div class="form-group">
