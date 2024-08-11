@@ -73,7 +73,10 @@
                     <li class="pc-item pc-caption">
                         <i class="ph ph-suitcase"></i>
                     </li>
-
+                    <li class="pc-item">
+                        <a href="{{ route('dosen-history') }}" class="pc-link"><span class="pc-micon">
+                                <i class="ph ph-clock"></i></span><span class="pc-mtext">History Jawaban</span></a>
+                    </li>
                     <li class="pc-item pc-hasmenu">
                         <a href="#!" class="pc-link"><span class="pc-micon">
                                 <i class="ph ph-desktop"></i></span><span class="pc-mtext">Ujian</span><span

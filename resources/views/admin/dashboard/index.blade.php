@@ -31,6 +31,15 @@
                     </div>
                 </div>
             </div>
+            <div class="col-md-6 col-xl-3">
+                <div class="card bg-grd-info order-card">
+                    <div class="card-body">
+                        <h6 class="text-white">Total Jawaban</h6>
+                        <h2 class="text-end text-white"><i class="fa-solid fa-message float-start"></i><span>{{ $jawaban }}</span>
+                        </h2>
+                    </div>
+                </div>
+            </div>
 
 
             <!-- Recent Orders end -->

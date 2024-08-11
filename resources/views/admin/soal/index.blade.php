@@ -44,6 +44,7 @@
                                     <th>Jenis Ujian</th>
                                     <th>Tingkat Kesulitan</th>
                                     <th>Kunci Jawaban</th>
+                                    <th>Bobot</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
@@ -55,6 +56,7 @@
                                     <td>{{ $item->jenis_ujian }}</td>
                                     <td>{{ $item->kesulitan }}</td>
                                     <td>{{ $item->kunci }}</td>
+                                    <td>{{ $item->bobot }}</td>
                                     <td>
                                         <div class="d-flex justify-content-center">
                                             <a href="{{ url("soal/{$item->id}/edit/{$matakuliah->id}") }}" class="btn btn-info btn-sm me-1" title="Edit"><i class="fa-solid fa-pen mr-1"></i></a>

@@ -16,6 +16,7 @@ return new class extends Migration
             $table->foreignId('id_matakuliah')->constrained('matakuliahs')->cascadeOnDelete()->cascadeOnUpdate();
             $table->text('soal');
             $table->text('kunci');
+            $table->integer('bobot');
             $table->enum('kesulitan', ['Mudah', 'Sedang', 'Sulit'])->default('Mudah');
             $table->timestamps();
         });

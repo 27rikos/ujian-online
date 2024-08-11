@@ -68,6 +68,10 @@
                             <textarea name="kunci" id="kunci" cols="30" rows="5" class="form-control">{{ $find->kunci }}</textarea>
                         </div>
                         <div class="form-group">
+                            <label for="bobot">Bobot Soal</label>
+                            <input type="number" class="form-control" name="bobot" value="{{ $find->bobot }}">
+                        </div>
+                        <div class="form-group">
                             <button class="btn btn-primary btn-sm" type="submit">Simpan</button>
                         </div>
                     </form>

@@ -29,6 +29,7 @@ class DosenSoalController extends Controller
             'kesulitan' => 'required',
             'kunci' => 'required',
             'jenis_ujian' => 'required',
+            'bobot' => 'required',
         ]);
         $data = Soal::create([
             'id_matakuliah' => $id,
@@ -36,6 +37,7 @@ class DosenSoalController extends Controller
             'jenis_ujian' => $request->jenis_ujian,
             'kesulitan' => $request->kesulitan,
             'kunci' => $request->kunci,
+            'bobot' => $request->bobot,
         ]);
         $data->save();
         return redirect('soal-dosen/' . $id)->with('toast_success', 'Soal Ditambahkan');
@@ -54,6 +56,7 @@ class DosenSoalController extends Controller
             'jenis_ujian' => $request->jenis_ujian,
             'kesulitan' => $request->kesulitan,
             'kunci' => $request->kunci,
+            'bobot' => $request->bobot,
         ]);
         return redirect('soal-dosen/' . $matakuliah)->with('toast_success', 'Soal Diubah');
     }

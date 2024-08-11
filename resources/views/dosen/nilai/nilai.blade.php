@@ -86,7 +86,8 @@
                                         @endif
                                     </td>
                                     <td>
-                                        <a href="{{ url("dosen-show-nilai/{$id}/edit/{$item->id}") }}" class="btn btn-primary btn-sm">Update Nilai</a>
+                                        <a href="{{ url("dosen-show-nilai/{$id}/edit/{$item->id}") }}" class="btn btn-primary btn-sm"><i class="fa-solid fa-pen-to-square"></i></a>
+                                        <a href="{{ url("dosen-show-nilai/{$id}/delete/{$item->id}") }}" class="btn btn-danger btn-sm"><i class="fa-solid fa-delete-left"></i></a>
                                     </td>
                                 </tr>
                                 @endforeach
