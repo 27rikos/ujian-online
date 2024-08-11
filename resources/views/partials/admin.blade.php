@@ -87,7 +87,11 @@
                     </li>
                     <li class="pc-item">
                         <a href="{{ route('jadwal.index') }}" class="pc-link"><span class="pc-micon">
-                                <i class="ph ph-clock"></i></span><span class="pc-mtext">Jadwal ujian</span></a>
+                                <i class="ph ph-calendar"></i></span><span class="pc-mtext">Jadwal ujian</span></a>
+                    </li>
+                    <li class="pc-item">
+                        <a href="{{ route('history') }}" class="pc-link"><span class="pc-micon">
+                                <i class="ph ph-clock"></i></span><span class="pc-mtext">History Jawaban</span></a>
                     </li>
                     <li class="pc-item pc-hasmenu">
                         <a href="#!" class="pc-link"><span class="pc-micon">

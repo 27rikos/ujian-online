@@ -30,7 +30,7 @@
         <div class="col-sm-12">
             <div class="card">
                 <div class="card-body">
-                    <table id="example" class="table table-hover  table-bordered nowrap" style="width:100%">
+                    <table id="example" class="table table-hover table-bordered nowrap" style="width:100%">
                         <thead>
                             <tr>
                                 <th>No</th>
@@ -45,7 +45,12 @@
                         </thead>
                         <tbody>
                             @foreach ($matakuliah as $item)
-                            <tr>
+                            @php
+                                // Find related jadwal item based on matakuliah name
+                                $jadwalItem = $jadwal->firstWhere('matakuliah', $item->matakuliah);
+                                $examDateTime = $jadwalItem ? $jadwalItem->tanggal . 'T' . $jadwalItem->start : '';
+                            @endphp
+                            <tr data-matakuliah-nama="{{ $item->matakuliah }}">
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $item->kode_matakuliah }}</td>
                                 <td>{{ $item->matakuliah }}</td>
@@ -54,7 +59,7 @@
                                 <td>{{ $item->sks }}</td>
                                 <td>{{ $item->dosen }}</td>
                                 <td>
-                                    <a href="{{ url('soal-mahasiswa/'.$item->id.'/uts') }}" class="btn btn-primary btn-sm "  >Soal</a>
+                                    <a href="{{ url('soal-mahasiswa/'.$item->id.'/uts') }}" class="btn btn-primary btn-sm soal-button">Soal</a>
                                 </td>
                             </tr>
                             @endforeach
@@ -67,4 +72,27 @@
     </div>
     <!-- [ Main Content ] end -->
 </div>
+
+<script>
+    $(document).ready(function() {
+        var jadwal = @json($jadwal);
+        var currentDateTime = new Date();
+
+        function hideSoalButtons() {
+            $('tr[data-matakuliah-nama]').each(function() {
+                var matakuliahNama = $(this).data('matakuliah-nama');
+                var relatedJadwal = jadwal.find(j => j.matakuliah === matakuliahNama);
+
+                if (relatedJadwal) {
+                    var startDateTime = new Date(relatedJadwal.tanggal + 'T' + relatedJadwal.start);
+                    if (startDateTime > currentDateTime) {
+                        $(this).find('.soal-button').hide();
+                    }
+                }
+            });
+        }
+
+        hideSoalButtons();
+    });
+    </script>
 @endsection

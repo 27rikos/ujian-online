@@ -29,4 +29,11 @@ class NilaiOnDosenController extends Controller
         $data->update($request->all());
         return redirect('dosen-show-nilai/' . $id)->with('toast_success', 'Nilai Diperbarui');
     }
+
+    public function destroy($id, $id_nilai)
+    {
+        $data = Nilai::findOrFail($id_nilai);
+        $data->delete();
+        return redirect('dosen-show-nilai/' . $id)->with('toast_success', 'Nilai Dihapus');
+    }
 }

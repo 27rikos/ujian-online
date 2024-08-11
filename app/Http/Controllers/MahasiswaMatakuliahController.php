@@ -2,20 +2,24 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Jadwal;
 use App\Models\Matakuliah;
+use App\Models\Nilai;
 
 class MahasiswaMatakuliahController extends Controller
 {
     public function uts()
     {
-        // $status_button = Nilai::where('nama_mahasiswa', auth()->user()->name)->value('uts');
+        $chance = Nilai::value('utschance');
+        $jadwal = Jadwal::select('tanggal', 'matakuliah', 'start')->get();
         $matakuliah = Matakuliah::all();
-        return view('mahasiswa.matakuliah.index', compact('matakuliah', ));
+        return view('mahasiswa.matakuliah.index', compact('matakuliah', 'chance', 'jadwal'));
     }
     public function uas()
     {
-        // $status_button = Nilai::where('nama_mahasiswa', auth()->user()->name)->value('uas');
+        $chance = Nilai::value('uaschance');
         $matakuliah = Matakuliah::all();
-        return view('mahasiswa.matakuliah.uas', compact('matakuliah', ));
+        $jadwal = Jadwal::select('tanggal', 'matakuliah', 'start')->get();
+        return view('mahasiswa.matakuliah.uas', compact('jadwal', 'matakuliah', 'chance'));
     }
 }

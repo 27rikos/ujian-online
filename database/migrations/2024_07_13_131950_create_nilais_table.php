@@ -19,6 +19,8 @@ return new class extends Migration
             $table->double('tugas')->nullable();
             $table->double('uts')->nullable();
             $table->double('uas')->nullable();
+            $table->integer('utschance');
+            $table->integer('uaschance');
             $table->timestamps();
         });
     }

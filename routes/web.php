@@ -3,8 +3,10 @@
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DosenController;
 use App\Http\Controllers\DosenDataController;
+use App\Http\Controllers\DosenHistorysController;
 use App\Http\Controllers\DosenMatakuliahController;
 use App\Http\Controllers\DosenSoalController;
+use App\Http\Controllers\HistorysController;
 use App\Http\Controllers\JadwalController;
 use App\Http\Controllers\JawabanController;
 use App\Http\Controllers\LoginController;
@@ -55,7 +57,11 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('show-nilai/{id}', [NilaiController::class, 'show']);
         Route::get('show-nilai/{id}/edit/{id_nilai}', [NilaiController::class, 'edit']);
         Route::put('show-nilai/{id}/update/{id_nilai}', [NilaiController::class, 'update']);
+        Route::get('show-nilai/{id}/delete/{id_nilai}', [NilaiController::class, 'destroy']);
         Route::get('generate-pdf/{id}', [PDFController::class, 'adminpdf']);
+        Route::get('history', [HistorysController::class, 'index'])->name('history');
+        Route::get('show-jawaban/{id}', [HistorysController::class, 'show']);
+        Route::get('show-jawaban/{id}/delete/{id_matakuliah}', [HistorysController::class, 'destroy']);
     });
 
 });
@@ -73,7 +79,11 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('dosen-show-nilai/{id}', [NilaiOnDosenController::class, 'show']);
         Route::get('dosen-show-nilai/{id}/edit/{id_nilai}', [NilaiOnDosenController::class, 'edit']);
         Route::put('dosen-show-nilai/{id}/update/{id_nilai}', [NilaiOnDosenController::class, 'update']);
+        Route::get('dosen-show-nilai/{id}/delete/{id_nilai}', [NilaiOnDosenController::class, 'destroy']);
         Route::get('generate/{id}', [PDFController::class, 'dosenpdf']);
+        Route::get('dosen-history', [DosenHistorysController::class, 'index'])->name('dosen-history');
+        Route::get('dosen-show-jawaban/{id}', [DosenHistorysController::class, 'show']);
+        Route::get('dosen-show-jawaban/{id}/delete/{id_matakuliah}', [DosenHistorysController::class, 'destroy']);
 
     });
 });
